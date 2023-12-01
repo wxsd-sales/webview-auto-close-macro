@@ -1,6 +1,6 @@
 # WebView Auto Close Macro
 
-This is an example macro which closes any open Web App or WebView on a Webex Device if it hasn't detected someone for a period of time
+This is an example macro which closes any open Web App or WebView on a Webex Device if it hasn't detected a user infront of the device for a period of time.
 
 ![WebView-Auto-Close](https://github.com/wxsd-sales/webview-autoclose-macro/assets/21026209/3d6fc046-6565-4c1a-b79e-c85f9a6c1f46)
 
