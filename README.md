@@ -22,6 +22,21 @@ This macro monitors people count and close proximity detection available on Boar
 
 1. Download the ``webview-autoclose.js`` file and upload it to your Webex Room devices Macro editor via the web interface.
 2. Configure the macro by changing the initial values, there are comments explaining each one.
+```javascript
+const config = {
+  autoCloseTimeout: 60, // Number of seconds before the WebView is close if no one has been detected.
+  alertTimeout: 30, // Number of seconds before auto close alert is shown if no one has been detected, should be less than the autoCloseTimeout
+  alertPrompt: {
+    Duration: 20,
+    Title: `Web Content Auto Close`,
+    Text: 'No one has been detected<br>Web content will soon auto close',
+    "Option.1": 'Suspend Auto Close',
+    FeedbackId: 'webviewAutoclose'
+  },
+  detectionSuspendPeriod: 120, // Number of seconds to stop monitoring if the user taps suspend auto close option
+  autoStandby: true // Automatically enter standby after closing WebView
+}
+```
 3. Save the macro changes and enable it using the toggle in the Macro on the editor.
     
 ## Validation
