@@ -25,7 +25,7 @@ The macro easily lets you configure how long it should wait before displaying th
 
 ### Installation Steps:
 
-1. Download the ``webview-autoclose.js`` file and upload it to your Webex Room devices Macro editor via the web interface.
+1. Download the ``webview-auto-close.js`` file and upload it to your Webex Room devices Macro editor via the web interface.
 2. Configure the macro by changing the initial values, there are comments explaining each one.
 ```javascript
 const config = {
