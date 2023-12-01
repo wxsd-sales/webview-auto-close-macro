@@ -14,7 +14,7 @@
  *
  * Full Readme, source code and license agreement available
  * on Github:
- * https://github.com/wxsd-sales/webview-autoclose-macro/
+ * https://github.com/wxsd-sales/webview-auto-close-macro
  * 
  ********************************************************/
 
