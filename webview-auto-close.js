@@ -5,37 +5,49 @@
  *                    	wimills@cisco.com
  *                    	Cisco Systems
  * 
- * Version: 1-0-0
- * Released: 12/01/23
+ * Version: 1-0-2
+ * Released: 12/15/23
  * 
  * This is an example macro which closes any open Web App or 
  * WebView on a Webex Device if it hasn't detected someone 
- * for a period of time
+ * for a period of time.
+ * 
+ * It can also clear the cached Web Data and put the Device
+ * into Standby when the Web Content has been Auto Closed 
+ * by the macro. These extra steps are optional and can be
+ * enabled/disable in the maros config
  *
  * Full Readme, source code and license agreement available
  * on Github:
- * https://github.com/wxsd-sales/webview-auto-close-macro
+ * https://github.com/wxsd-sales/webview-auto-close-macro/
  * 
  ********************************************************/
 
 import xapi from 'xapi';
 
+/*********************************************************
+ * Configure the settings below
+**********************************************************/
+
 const config = {
   autoCloseTimeout: 60, // Number of seconds before the WebView is close if no one has been detected.
-  alertTimeout: 30, // Number of seconds before auto close alert is shown if no one has been detected, should be less than the autoCloseTimeout
+  alertTimeout: 30,     // Number of seconds before auto close alert is shown if no one has been detected, should be less than the autoCloseTimeout
   alertPrompt: {
     Duration: 20,
     Title: `Web Content Auto Close`,
-    Text: 'No one has been detected<br>Web content will soon auto close',
+    Text: 'No one has been detected for a whilte.<br>Web content will soon auto close',
     "Option.1": 'Suspend Auto Close',
     FeedbackId: 'webviewAutoclose'
   },
-  detectionSuspendPeriod: 120, // Number of seconds to stop monitoring if the user taps suspend auto close option
-  autoStandby: true // Automatically enter standby after closing WebView
+  detectionSuspendPeriod: 120,  // Number of seconds to stop monitoring if the user taps suspend auto close option
+  autoStandby: true,            // Automatically enter standby after closing WebView
+  autoCleanup: true             // Automatically clean up Web Cache when the Macro Auto closes Web Content
 }
 
 /*********************************************************
- * Apply Config and subscribe to Event and Status changes
+ * Do not touch Below:
+ * Here is where we apply configurations and subscribe to 
+ * Event and Status changes
 **********************************************************/
 
 xapi.Config.RoomAnalytics.PeopleCountOutOfCall.set('On');
@@ -124,7 +136,7 @@ async function visibleWebView() {
       (view.Type == 'WebApp' ||
         view.Type == 'Integration' ||
         view.Type == 'ECM' ||
-        view.Tyel == 'ECMSignIn')
+        view.Type == 'ECMSignIn')
   })
 
   // Return if any valid webviews are visible
@@ -190,8 +202,14 @@ async function closeWebViews() {
   closePrompt();
   await xapi.Command.UserInterface.Extensions.Panel.Close();
   await xapi.Command.Presentation.Stop();
-  if (!config.autoStandby) return
-  enterStandby();
+
+  if(config.autoCleanup) performRoomClean();
+  if(config.autoStandby) enterStandby();
+}
+
+function performRoomClean() {
+  console.log('Performing Room Cleanup');
+  xapi.Command.RoomCleanup.Run({ ContentType: ['TemporaryAccounts', 'Whiteboards', 'WebData'] });
 }
 
 function enterStandby() {
