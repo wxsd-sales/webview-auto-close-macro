@@ -9,9 +9,12 @@ This is an example macro which closes any open Web App or WebView on a Webex Dev
 
 This macro monitors people count and close proximity detection available on natively on Webex Board and Desk Devices whenever a user opens Web Content on the device. If a the user walks away from the device, the macro will automatically close the Web Content if it hasn't detected a person close to the device after a configurable amount of time.
 
+
 The macro also displays an alert just before it is about to close the content in the event it happened not to detect the user giving them an opportunity to supress the macros auto close functionality for a period of time.
 
 The macro easily lets you configure how long it should wait before displaying the alert or takes action and close the content along with how long it should suspend.
+
+The macro can also clear the cached Web Data and put the Device into Standby when the Web Content has been Auto Closed. These extra steps are optional and can be enabled/disabled in the maros config.
 
 
 
