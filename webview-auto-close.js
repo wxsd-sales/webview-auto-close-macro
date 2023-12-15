@@ -15,7 +15,7 @@
  * It can also clear the cached Web Data and put the Device
  * into Standby when the Web Content has been Auto Closed 
  * by the macro. These extra steps are optional and can be
- * enabled/disable in the maros config
+ * enabled/disabled in the maros config
  *
  * Full Readme, source code and license agreement available
  * on Github:
